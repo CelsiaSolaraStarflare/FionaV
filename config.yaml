@@ -1,0 +1,106 @@
+# Universal Distributed Computing System Configuration
+
+# Coordinator settings
+coordinator:
+  host: "0.0.0.0"
+  api_port: 8080
+  web_port: 8081
+  max_concurrent_tasks: 1000
+  task_timeout_seconds: 3600
+  heartbeat_interval_seconds: 30
+  
+# Worker settings
+worker:
+  auto_register: true
+  heartbeat_interval_seconds: 30
+  max_concurrent_tasks: 4
+  temp_directory: "/tmp/udcs_worker"
+  cleanup_on_exit: true
+  
+# Task execution settings
+tasks:
+  default_priority: 5
+  max_priority: 10
+  retry_attempts: 3
+  cuda_kernel_timeout: 300
+  docker_timeout: 1800
+  compile_timeout: 600
+  native_exec_timeout: 1800
+  
+# Security settings
+security:
+  enable_authentication: false
+  api_key: ""
+  allowed_hosts: ["*"]
+  max_payload_size_mb: 100
+  sandboxing_enabled: true
+  
+# Hardware detection
+hardware:
+  detect_on_startup: true
+  update_interval_seconds: 300
+  gpu_monitoring: true
+  temperature_monitoring: false
+  
+# Logging
+logging:
+  level: "info"  # debug, info, warn, error
+  file: "udcs.log"
+  max_size_mb: 100
+  max_backups: 3
+  
+# Performance tuning
+performance:
+  load_balancing_algorithm: "least_loaded"  # round_robin, least_loaded, capability_based
+  task_queue_size: 10000
+  worker_pool_size: 10
+  connection_pool_size: 100
+  
+# GPU settings
+gpu:
+  cuda:
+    enabled: true
+    devices: "auto"  # "auto", "0,1,2", or list of device IDs
+    memory_fraction: 0.8
+  rocm:
+    enabled: true
+    devices: "auto"
+  metal:
+    enabled: true
+  opencl:
+    enabled: true
+    
+# Distributed features
+distributed:
+  auto_discovery: true
+  discovery_port: 9999
+  cluster_key: "udcs_cluster"
+  sync_interval_seconds: 60
+  
+# Monitoring and metrics
+monitoring:
+  enable_metrics: true
+  metrics_port: 9090
+  enable_profiling: false
+  profiling_port: 6060
+  
+# Storage settings
+storage:
+  cache_directory: "./cache"
+  max_cache_size_gb: 10
+  temp_file_cleanup_hours: 24
+  
+# Network settings
+network:
+  max_connections: 1000
+  read_timeout_seconds: 30
+  write_timeout_seconds: 30
+  keep_alive: true
+  compression: true
+  
+# Development settings
+development:
+  debug_mode: false
+  mock_hardware: false
+  simulation_mode: false
+  verbose_logging: false 

@@ -133,20 +133,27 @@ class TaskClient:
     
     # Convenience methods for specific task types
     
-    def submit_cuda_kernel(self, kernel_code: str, data: Dict[str, Any], 
-                          grid_size: List[int], block_size: List[int],
+    def submit_cuda_kernel(self, task_data_or_kernel_code: Union[Dict[str, Any], str], 
+                          data: Optional[Dict[str, Any]] = None, 
+                          grid_size: Optional[List[int]] = None, 
+                          block_size: Optional[List[int]] = None,
                           compute_capability: Optional[str] = None) -> str:
         """Submit a custom CUDA kernel for execution"""
         requirements = {}
         if compute_capability:
             requirements["compute_capability"] = compute_capability
         
-        payload = {
-            "kernel_code": kernel_code,
-            "data": data,
-            "grid_size": grid_size,
-            "block_size": block_size
-        }
+        if isinstance(task_data_or_kernel_code, dict):
+            # Accept full task data object
+            payload = task_data_or_kernel_code
+        else:
+            # Accept individual parameters
+            payload = {
+                "kernel_code": task_data_or_kernel_code,
+                "data": data,
+                "grid_size": grid_size,
+                "block_size": block_size
+            }
         
         return self.submit_task(TaskType.CUDA_KERNEL, payload, requirements)
     
@@ -222,22 +229,55 @@ class TaskClient:
         
         return self.submit_task(TaskType.NATIVE_EXEC, payload, requirements)
     
-    def submit_docker_task(self, image: str, command: List[str],
+    def submit_docker_task(self, task_data_or_image: Union[Dict[str, Any], str], 
+                          command: Optional[List[str]] = None,
                           volumes: Optional[Dict[str, str]] = None,
                           environment: Optional[Dict[str, str]] = None) -> str:
         """Submit a Docker container task"""
-        payload = {
-            "image": image,
-            "command": command,
-            "volumes": volumes or {},
-            "environment": environment or {}
-        }
+        if isinstance(task_data_or_image, dict):
+            # Accept full task data object
+            payload = task_data_or_image
+        else:
+            # Accept individual parameters
+            payload = {
+                "image": task_data_or_image,
+                "command": command or [],
+                "volumes": volumes or {},
+                "environment": environment or {}
+            }
         
         requirements = {
             "docker": True
         }
         
         return self.submit_task(TaskType.DOCKER, payload, requirements)
+
+    def submit_compile_task(self, source_code: str, language: str = "c++",
+                           compiler_flags: Optional[List[str]] = None) -> str:
+        """Submit a compilation task"""
+        payload = {
+            "source_code": source_code,
+            "language": language,
+            "compiler_flags": compiler_flags or []
+        }
+        
+        return self.submit_task(TaskType.COMPILE, payload)
+
+    def submit_ml_task(self, task_data: Dict[str, Any]) -> str:
+        """Submit a machine learning inference task"""
+        return self.submit_task(TaskType.ML_INFERENCE, task_data)
+
+    def submit_video_task(self, task_data: Dict[str, Any]) -> str:
+        """Submit a video encoding task"""
+        return self.submit_task(TaskType.VIDEO_ENCODE, task_data)
+
+    def submit_game_render_task(self, task_data: Dict[str, Any]) -> str:
+        """Submit a game rendering task"""
+        return self.submit_task(TaskType.GAME_RENDER, task_data)
+
+    def get_devices(self) -> List[Dict[str, Any]]:
+        """Alias for list_devices for compatibility"""
+        return self.list_devices()
 
 
 class AsyncTaskClient:
@@ -300,7 +340,7 @@ if __name__ == "__main__":
     
     # Example 2: Submit a Docker task
     docker_task_id = client.submit_docker_task(
-        image="python:3.9-slim",
+        task_data_or_image="python:3.9-slim",
         command=["python", "-c", "print('Hello from distributed Docker!')"],
         environment={"MY_VAR": "test"}
     )

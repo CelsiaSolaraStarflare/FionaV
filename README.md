@@ -1,23 +1,55 @@
-# Distributed Computing System
+# Universal Distributed Computing System (UDCS)
 
-A cross-platform distributed computing system that can distribute tasks across devices on a local network, regardless of their architecture (x86, ARM) or operating system (Windows, macOS, Linux).
+A revolutionary cross-platform distributed computing system that can distribute **ANY** type of computation across devices on a local network, regardless of their architecture (x86, ARM) or operating system (Windows, macOS, Linux).
+
+## 🚀 Quick Start
+
+**Option 1: One-Command Startup**
+```bash
+python start.py --demo
+```
+
+**Option 2: Manual Startup**
+```bash
+make help              # See all available commands
+make start-system      # Build and start coordinator
+make run-worker        # Start worker (in separate terminal)
+make run-demo          # Run demo tasks
+```
+
+**Option 3: Individual Components**
+```bash
+make build-all                               # Build everything
+./bin/coordinator --port 8080 --web-port 8081  # Start server
+./bin/worker --coordinator localhost:8080    # Start worker
+python examples/demo.py                      # Test tasks
+```
 
 ## Architecture
 
-The system consists of three main components:
+The system consists of five main components:
 
-1. **Task Manager (Server)** - Manages task distribution and result collection
-2. **Worker Nodes** - Execute tasks on available devices
-3. **Task Interface** - Defines how tasks are packaged and executed
+1. **Coordinator (Go)** - High-performance task distribution and orchestration
+2. **Workers (Go)** - Execute tasks on available devices with hardware detection
+3. **Hardware Detector (C++)** - Cross-platform hardware capability detection
+4. **GPU Kernels (CUDA/Metal/OpenCL)** - Universal compute kernel library
+5. **Web Interface (HTML/JS)** - Real-time monitoring and control
 
-## Features
+## Universal Task Support
 
-- Automatic device discovery on local network
-- Cross-platform compatibility (Python-based)
-- Architecture-agnostic task execution
-- Load balancing based on device capabilities
-- Fault tolerance and task reassignment
-- Real-time monitoring of task progress
+Unlike traditional systems limited to scientific computing, UDCS supports **ANY** computation:
+
+### ✅ What UDCS Can Distribute
+- **GPU Computing**: CUDA, ROCm, Metal, OpenCL kernels
+- **Game Rendering**: Split across multiple GPUs, distributed frame rendering
+- **Video Processing**: Encoding, transcoding, real-time streaming
+- **Machine Learning**: Training, inference, distributed model serving
+- **Native Binaries**: Any executable across architectures and OS
+- **Compilation**: Distributed C/C++/Go/Rust builds
+- **Docker Containers**: Any containerized workload
+- **WebAssembly**: Cross-platform compute modules
+- **Custom Kernels**: Assembly, specialized hardware
+- **Real-time Applications**: Game physics, simulations
 
 ## Requirements
 
