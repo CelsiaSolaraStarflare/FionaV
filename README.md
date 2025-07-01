@@ -4,12 +4,21 @@ A revolutionary cross-platform distributed computing system that can distribute 
 
 ## 🚀 Quick Start
 
-**Option 1: One-Command Startup**
+**Option 1: GUI Starter (Recommended)**
+```bash
+# First, build the system
+make build-all
+
+# Then run the GUI
+make run-gui
+```
+
+**Option 2: One-Command Startup**
 ```bash
 python start.py --demo
 ```
 
-**Option 2: Manual Startup**
+**Option 3: Manual Startup**
 ```bash
 make help              # See all available commands
 make start-system      # Build and start coordinator
@@ -17,7 +26,7 @@ make run-worker        # Start worker (in separate terminal)
 make run-demo          # Run demo tasks
 ```
 
-**Option 3: Individual Components**
+**Option 4: Individual Components**
 ```bash
 make build-all                               # Build everything
 ./bin/coordinator --port 8080 --web-port 8081  # Start server
@@ -25,7 +34,7 @@ make build-all                               # Build everything
 python examples/demo.py                      # Test tasks
 ```
 
-**Option 4: Deploy Dashboard Online**
+**Option 5: Deploy Dashboard Online**
 ```bash
 make deploy-dashboard                        # See deployment options
 # Deploy to GitHub Pages, Netlify, Vercel, etc.
@@ -44,9 +53,10 @@ The system consists of five main components:
 
 ## Universal Task Support
 
-Unlike traditional systems limited to scientific computing, UDCS supports **ANY** computation:
+Unlike traditional systems limited to scientific computing, UDCS supports **ANY** computation, now with **auto-discovery** of tasks on your local machine.
 
 ### ✅ What UDCS Can Distribute
+- **Auto-Discovered Tasks**: Automatically finds and runs tasks like image processing, video encoding, and code compilation from a local directory.
 - **GPU Computing**: CUDA, ROCm, Metal, OpenCL kernels
 - **Game Rendering**: Split across multiple GPUs, distributed frame rendering
 - **Video Processing**: Encoding, transcoding, real-time streaming

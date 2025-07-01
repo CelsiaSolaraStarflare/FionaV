@@ -34,11 +34,17 @@ clean:
 run-coordinator: build-coordinator
 	./$(BIN_DIR)/coordinator --port 8080 --web-port 8081
 
-run-worker: build-worker
-	./$(BIN_DIR)/worker --coordinator localhost:8080
+run-worker:
+	@echo "Starting worker..."
+	@$(WORKER_BIN) --coordinator $(COORDINATOR_HOST):$(COORDINATOR_PORT)
 
-run-demo: 
-	python examples/demo.py
+run-demo:
+	@echo "Running Python demo script..."
+	@python examples/demo.py
+
+run-gui:
+	@echo "Starting UDCS GUI Starter..."
+	@python gui_starter.py
 
 test-build:
 	python test_build.py
