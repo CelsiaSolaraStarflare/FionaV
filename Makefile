@@ -54,6 +54,33 @@ start-system: build-all
 	@echo ""
 	./$(BIN_DIR)/coordinator --port 8080 --web-port 8081
 
+deploy-dashboard:
+	@echo "🌐 Deploying UDCS Dashboard for online hosting..."
+	@echo ""
+	@echo "Static Dashboard Available at:"
+	@echo "  deploy/static-dashboard.html"
+	@echo ""
+	@echo "Quick Deploy Options:"
+	@echo "  📱 GitHub Pages: Copy static-dashboard.html to repo root as index.html"
+	@echo "  🚀 Netlify: Drag and drop static-dashboard.html to netlify.com"
+	@echo "  ⚡ Vercel: Import project to vercel.com"
+	@echo ""
+	@echo "Access examples:"
+	@echo "  https://username.github.io/repo-name"
+	@echo "  https://app-name.netlify.app"
+	@echo "  https://project-name.vercel.app"
+
+deploy-docker:
+	@echo "🐳 Starting Docker deployment..."
+	cd deploy && docker-compose up -d
+	@echo ""
+	@echo "Services started:"
+	@echo "  🎛️  Dashboard: http://localhost:3000"
+	@echo "  🖥️  Coordinator: http://localhost:8080"
+	@echo "  🌐 Web Interface: http://localhost:8081"
+	@echo ""
+	@echo "To stop: cd deploy && docker-compose down"
+
 help:
 	@echo "Universal Distributed Computing System - Build Commands"
 	@echo "======================================================="
@@ -72,9 +99,13 @@ help:
 	@echo "  make run-worker        - Start worker node"
 	@echo "  make run-demo          - Run demo script"
 	@echo ""
+	@echo "Deployment Commands:"
+	@echo "  make deploy-dashboard  - Deploy dashboard online"
+	@echo "  make deploy-docker     - Deploy with Docker"
+	@echo ""
 	@echo "Utility Commands:"
 	@echo "  make test-build        - Test build system"
 	@echo "  make clean             - Clean build artifacts"
 	@echo "  make help              - Show this help"
 
-.PHONY: build-all build-coordinator build-detector build-kernels build-worker build-web clean run-coordinator run-worker run-demo test-build start-system help 
+.PHONY: build-all build-coordinator build-detector build-kernels build-worker build-web clean run-coordinator run-worker run-demo test-build start-system help deploy-dashboard deploy-docker 

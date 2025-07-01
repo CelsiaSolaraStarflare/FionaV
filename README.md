@@ -1,4 +1,4 @@
-# FionaV: Universal Distributed Computing System (FionaV-UDCS)
+# Universal Distributed Computing System (UDCS)
 
 A revolutionary cross-platform distributed computing system that can distribute **ANY** type of computation across devices on a local network, regardless of their architecture (x86, ARM) or operating system (Windows, macOS, Linux).
 
@@ -23,6 +23,13 @@ make build-all                               # Build everything
 ./bin/coordinator --port 8080 --web-port 8081  # Start server
 ./bin/worker --coordinator localhost:8080    # Start worker
 python examples/demo.py                      # Test tasks
+```
+
+**Option 4: Deploy Dashboard Online**
+```bash
+make deploy-dashboard                        # See deployment options
+# Deploy to GitHub Pages, Netlify, Vercel, etc.
+# Monitor any coordinator from anywhere!
 ```
 
 ## Architecture
@@ -362,6 +369,48 @@ We welcome contributions in any language! See:
 - `src/kernels/` - GPU kernel implementations
 - `src/web/` - Frontend and monitoring
 - `src/native/` - Platform-specific optimizations
+
+## 🌐 Online Dashboard Deployment
+
+The UDCS Dashboard can be deployed online and connect to any coordinator, making it accessible from anywhere:
+
+### ✅ Deployment Options
+- **GitHub Pages** (Free) - Perfect for public monitoring
+- **Netlify** (Free) - Instant deployment with custom domains
+- **Vercel** (Free) - Global CDN distribution
+- **AWS S3** - Enterprise-grade hosting
+- **Docker** - Full containerized deployment
+
+### 🔗 Universal Compatibility
+- Connect to **any** UDCS coordinator
+- Works across different networks
+- Supports HTTPS/WSS connections
+- Mobile-responsive design
+- Real-time device monitoring
+
+### 🚀 Quick Deploy
+```bash
+# Copy the static dashboard
+cp deploy/static-dashboard.html index.html
+
+# Deploy to your favorite platform
+git add index.html && git commit -m "Add UDCS Dashboard"
+git push  # Auto-deploys on GitHub Pages
+
+# Or drag-and-drop to Netlify/Vercel
+```
+
+### 📱 Access Examples
+- **GitHub**: `https://username.github.io/udcs-dashboard`
+- **Netlify**: `https://udcs-monitor.netlify.app`
+- **Custom**: `https://computing.company.com`
+
+### 🔧 Connection Examples
+The dashboard can monitor coordinators at:
+- Local development: `localhost:8080`
+- Home network: `192.168.1.100:8080`
+- Remote server: `udcs.example.com:8080`
+- Cloud deployment: `https://api.computing.com`
 
 ## License
 
